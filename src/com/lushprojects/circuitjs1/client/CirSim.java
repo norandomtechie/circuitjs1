@@ -106,12 +106,12 @@ MouseOutHandler, MouseWheelHandler {
     MenuItem undoItem, redoItem,
 	cutItem, copyItem, pasteItem, selectAllItem, optionsItem;
     MenuBar optionsMenuBar;
-    CheckboxMenuItem dotsCheckItem;
-    CheckboxMenuItem voltsCheckItem;
-    CheckboxMenuItem powerCheckItem;
-    CheckboxMenuItem smallGridCheckItem;
+    static CheckboxMenuItem dotsCheckItem;
+    static CheckboxMenuItem voltsCheckItem;
+    static CheckboxMenuItem powerCheckItem;
+    static CheckboxMenuItem smallGridCheckItem;
     CheckboxMenuItem crossHairCheckItem;
-    CheckboxMenuItem showValuesCheckItem;
+    static CheckboxMenuItem showValuesCheckItem;
     CheckboxMenuItem conductanceCheckItem;
     CheckboxMenuItem euroResistorCheckItem;
     CheckboxMenuItem euroGatesCheckItem;
@@ -120,9 +120,9 @@ MouseOutHandler, MouseWheelHandler {
     CheckboxMenuItem conventionCheckItem;
     private Label powerLabel;
     private Label titleLabel;
-    private Scrollbar speedBar;
-    private Scrollbar currentBar;
-    private Scrollbar powerBar;
+    private static Scrollbar speedBar;
+    private static Scrollbar currentBar;
+    private static Scrollbar powerBar;
     MenuBar elmMenuBar;
     MenuItem elmEditMenuItem;
     MenuItem elmCutMenuItem;
@@ -180,16 +180,19 @@ MouseOutHandler, MouseWheelHandler {
     int scopeSelected = -1;
     int menuScope = -1;
     int menuPlot = -1;
-    int hintType = -1, hintItem1, hintItem2;
+    static int hintType = -1;
+    static int hintItem1;
+    static int hintItem2;
     String stopMessage;
-    double timeStep;
+    static double timeStep;
     static final int HINT_LC = 1;
     static final int HINT_RC = 2;
     static final int HINT_3DB_C = 3;
     static final int HINT_TWINT = 4;
-    static final int HINT_3DB_L = 5;
-    Vector<CircuitElm> elmList;
-    Vector<Adjustable> adjustables;
+    static
+    final int HINT_3DB_L = 5;
+    static Vector<CircuitElm> elmList;
+    static Vector<Adjustable> adjustables;
 //    Vector setupList;
     CircuitElm dragElm, menuElm, stopElm;
     private CircuitElm mouseElm=null;
@@ -208,8 +211,8 @@ MouseOutHandler, MouseWheelHandler {
     int circuitMatrixSize, circuitMatrixFullSize;
     boolean circuitNeedsMap;
  //   public boolean useFrame;
-    int scopeCount;
-    Scope scopes[];
+    static int scopeCount;
+    static Scope scopes[];
     boolean showResistanceInVoltageSources;
    int scopeColCount[];
     static EditDialog editDialog, customLogicEditDialog, diodeModelEditDialog;
@@ -312,6 +315,16 @@ MouseOutHandler, MouseWheelHandler {
     String startCircuitLink = null;
 //    String baseURL = "http://www.falstad.com/circuit/";
     
+    public static native String retrieveFieldText (String fld) /*-{
+	return $wnd.getFieldText (fld)
+    }-*/;
+    
+    public static native void sendFieldText (String fld, String val) /*-{
+	$wnd.setFieldText (fld, val)
+    }-*/;
+    
+    public static String fld = null;
+    
     public void init() {
 
 
@@ -331,9 +344,13 @@ MouseOutHandler, MouseWheelHandler {
 		// look for circuit embedded in URL
 //		String doc = applet.getDocumentBase().toString();
 		String cct=qp.getValue("cct");
+		fld=qp.getValue("field");
 		if (cct!=null)
 			startCircuitText = cct.replace("%24", "$");
+		if (fld!=null)
+		    	startCircuitText = retrieveFieldText (fld).replace("%24", "$");
 		startCircuit = qp.getValue("startCircuit");
+		
 		startLabel   = qp.getValue("startLabel");
 		startCircuitLink = qp.getValue("startCircuitLink");
 		euroRes = qp.getBooleanValue("euroResistors", false);
@@ -642,9 +659,6 @@ MouseOutHandler, MouseWheelHandler {
 				getSetupList(true);
 		}
 	}
-
-		
-
 	
 		enableUndoRedo();
 		enablePaste();
@@ -1513,7 +1527,7 @@ MouseOutHandler, MouseWheelHandler {
 	return nodeList.elementAt(n);
     }
 
-    public CircuitElm getElm(int n) {
+    public static CircuitElm getElm(int n) {
 	if (n >= elmList.size())
 	    return null;
 	return elmList.elementAt(n);
@@ -2364,7 +2378,7 @@ MouseOutHandler, MouseWheelHandler {
 	    circuitRowInfo[i-1].lsChanges = true;
     }
 
-    double getIterCount() {
+    static double getIterCount() {
     	// IES - remove interaction
 	if (speedBar.getValue() == 0)
 	   return 0;
@@ -2934,7 +2948,7 @@ MouseOutHandler, MouseWheelHandler {
     }
     
 
-    String dumpCircuit() {
+    static String dumpCircuit() {
 	int i;
 	CustomLogicModel.clearDumpedFlags();
 	CustomCompositeModel.clearDumpedFlags();
@@ -2969,6 +2983,9 @@ MouseOutHandler, MouseWheelHandler {
 	if (hintType != -1)
 	    dump += "h " + hintType + " " + hintItem1 + " " +
 		hintItem2 + "\n";
+	if (fld != null) {
+	    sendFieldText (fld, dump);	    
+	}
 	return dump;
     }
 

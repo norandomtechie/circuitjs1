@@ -3,7 +3,43 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<style>
+	#circuitjs {
+		width: 75vw;
+		height: 60vh;
+	}
+	body {
+		display: flex;
+		flex-direction: column;
+	}
+	[name="circuit_text"] {
+		margin-top: 1vh;
+		height: 15vh;
+	}
+	#render {
+		width: 7vw;
+		height: 4vh;
+	}
+</style>
 </head>
 <body>
+	<textarea name="circuit_text"></textarea>
+	<button id="render" onclick="initWindow()">Re-render</button>
+	<iframe name="circuitframe" width="1000" height="800"></iframe>
+	<script>
+		function initWindow() {
+			document.querySelector ('[name="circuitframe"]').value = ''
+			var circF = window.open ("circuitjs.html?field=circuit_text", "circuitframe", 'width="1000", height="800"')
+		}
+    	document.querySelector('[name="circuit_text"]').value = `
+    		$ 0 0.000005 1.0312258501325766 50 5 50
+			w 544 256 544 432 0
+			r 544 432 352 432 0 1000
+			g 352 432 352 496 0
+			R 544 256 544 224 0 0 40 5 0 0 0.5
+			w 544 256 352 256 0
+			r 352 256 352 432 0 1000`
+    	initWindow()
+    </script>
 </body>
 </html>

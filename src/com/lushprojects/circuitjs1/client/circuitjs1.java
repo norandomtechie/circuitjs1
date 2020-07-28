@@ -79,11 +79,16 @@ public class circuitjs1 implements EntryPoint {
 
 	static CirSim mysim;
 	HashMap<String,String> localizationMap;
+
+	
+  private static native void permitCircuitDumpJS () /*-{
+	$wnd.dumpCircuit = @com.lushprojects.circuitjs1.client.CirSim::dumpCircuit()
+  }-*/;
 	
   public void onModuleLoad() {
       localizationMap = new HashMap<String,String>();
-      
       loadLocale();
+      permitCircuitDumpJS();
   }
 
   native String language()  /*-{ // Modified to support Electron which return empty array for navigator.languages
