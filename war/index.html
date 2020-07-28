@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Falstad demo</title>
 <style>
 	#circuitjs {
 		width: 75vw;
@@ -16,22 +16,26 @@
 		margin-top: 1vh;
 		height: 15vh;
 	}
-	#render {
+	#render1, #render2 {
 		width: 7vw;
 		height: 4vh;
 	}
 </style>
 </head>
 <body>
-	<textarea name="circuit_text"></textarea>
-	<button id="render" onclick="initWindow()">Re-render</button>
-	<iframe name="circuitframe" width="1000" height="800"></iframe>
+	<textarea name="circuit_text1"></textarea>
+	<button id="render1" onclick="initWindow(1)">Re-render</button>
+	<iframe name="circuitframe1" width="1000" height="800"></iframe>
+
+	<textarea name="circuit_text2"></textarea>
+	<button id="render2" onclick="initWindow(2)">Re-render</button>
+	<iframe name="circuitframe2" width="1000" height="800"></iframe>
 	<script>
-		function initWindow() {
-			document.querySelector ('[name="circuitframe"]').value = ''
-			var circF = window.open ("circuitjs.html?field=circuit_text", "circuitframe", 'width="1000", height="800"')
+		function initWindow(opt) {
+			document.querySelector ('[name="circuitframe' + opt + '"]').value = ''
+			window.open ("circuitjs.html?field=circuit_text" + opt, "circuitframe" + opt, 'width="1000", height="800"')
 		}
-    	document.querySelector('[name="circuit_text"]').value = `
+    	document.querySelector('[name="circuit_text1"]').value = `
     		$ 0 0.000005 1.0312258501325766 50 5 50
 			w 544 256 544 432 0
 			r 544 432 352 432 0 1000
@@ -39,7 +43,17 @@
 			R 544 256 544 224 0 0 40 5 0 0 0.5
 			w 544 256 352 256 0
 			r 352 256 352 432 0 1000`
-    	initWindow()
+		document.querySelector('[name="circuit_text2"]').value = `
+		$ 0 0.000005 382.76258214399064 50 5 50
+		r 512 160 512 272 0 100000
+		c 512 400 512 272 0 0.00001 -4.607809906865483
+		w 240 400 512 400 0
+		v 240 400 240 160 0 0 40 5 0 0 0.5
+		s 240 160 384 160 0 1 false
+		w 384 160 512 160 0`
+		
+    	initWindow("1")
+		initWindow("2")
     </script>
 </body>
 </html>

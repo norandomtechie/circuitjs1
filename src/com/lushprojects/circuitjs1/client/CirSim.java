@@ -379,26 +379,26 @@ MouseOutHandler, MouseWheelHandler {
 	layoutPanel = new DockLayoutPanel(Unit.PX);
 	
 	  fileMenuBar = new MenuBar(true);
-	  importFromLocalFileItem = new MenuItem(LS("Open File..."), new MyCommand("file","importfromlocalfile"));
-	  importFromLocalFileItem.setEnabled(LoadFile.isSupported());
-	  fileMenuBar.addItem(importFromLocalFileItem);
-	  importFromTextItem = new MenuItem(LS("Import From Text..."), new MyCommand("file","importfromtext"));
-	  fileMenuBar.addItem(importFromTextItem);
-	  importFromDropboxItem = new MenuItem(LS("Import From Dropbox..."), new MyCommand("file", "importfromdropbox"));
-	  fileMenuBar.addItem(importFromDropboxItem); 
-	  exportAsLocalFileItem = new MenuItem(LS("Save As..."), new MyCommand("file","exportaslocalfile"));
-	  exportAsLocalFileItem.setEnabled(ExportAsLocalFileDialog.downloadIsSupported());
-	  fileMenuBar.addItem(exportAsLocalFileItem);
-	  exportAsUrlItem = new MenuItem(LS("Export As Link..."), new MyCommand("file","exportasurl"));
-	  fileMenuBar.addItem(exportAsUrlItem);
-	  exportAsTextItem = new MenuItem(LS("Export As Text..."), new MyCommand("file","exportastext"));
-	  fileMenuBar.addItem(exportAsTextItem);
+	  //importFromLocalFileItem = new MenuItem(LS("Open File..."), new MyCommand("file","importfromlocalfile"));
+	  //importFromLocalFileItem.setEnabled(LoadFile.isSupported());
+	  //fileMenuBar.addItem(importFromLocalFileItem);
+	  //importFromTextItem = new MenuItem(LS("Import From Text..."), new MyCommand("file","importfromtext"));
+	  //fileMenuBar.addItem(importFromTextItem);
+	  //importFromDropboxItem = new MenuItem(LS("Import From Dropbox..."), new MyCommand("file", "importfromdropbox"));
+	  //fileMenuBar.addItem(importFromDropboxItem); 
+	  //exportAsLocalFileItem = new MenuItem(LS("Save As..."), new MyCommand("file","exportaslocalfile"));
+	  //exportAsLocalFileItem.setEnabled(ExportAsLocalFileDialog.downloadIsSupported());
+	  //fileMenuBar.addItem(exportAsLocalFileItem);
+	  //exportAsUrlItem = new MenuItem(LS("Export As Link..."), new MyCommand("file","exportasurl"));
+	  //fileMenuBar.addItem(exportAsUrlItem);
+	  //exportAsTextItem = new MenuItem(LS("Export As Text..."), new MyCommand("file","exportastext"));
+	  //fileMenuBar.addItem(exportAsTextItem);
 	  fileMenuBar.addItem(new MenuItem(LS("Export As Image..."), new MyCommand("file","exportasimage")));
 	  fileMenuBar.addItem(new MenuItem(LS("Create Subcircuit..."), new MyCommand("file","createsubcircuit")));
 	  fileMenuBar.addItem(new MenuItem(LS("Find DC Operating Point"), new MyCommand("file", "dcanalysis")));
-	  recoverItem = new MenuItem(LS("Recover Auto-Save"), new MyCommand("file","recover"));
-	  recoverItem.setEnabled(recovery != null);
-	  fileMenuBar.addItem(recoverItem);
+	  //recoverItem = new MenuItem(LS("Recover Auto-Save"), new MyCommand("file","recover"));
+	  //recoverItem.setEnabled(recovery != null);
+	  //fileMenuBar.addItem(recoverItem);
 	  printItem = new MenuItem(LS("Print..."), new MyCommand("file","print"));
 	  fileMenuBar.addItem(printItem);
 	  fileMenuBar.addSeparator();
@@ -559,7 +559,7 @@ MouseOutHandler, MouseWheelHandler {
 			    }
 			  });
 		 resetButton.setStylePrimaryName("topButton");
-		 buttonPanel.add(runStopButton = new Button(LSHTML("<Strong>RUN</Strong>&nbsp;/&nbsp;Stop")));
+		 buttonPanel.add(runStopButton = new Button(LSHTML("Run&nbsp;/&nbsp;<strong>STOP</strong>")));
 		 runStopButton.addClickHandler(new ClickHandler() {
 			    public void onClick(ClickEvent event) {
 			      setSimRunning(!simIsRunning());
@@ -678,7 +678,7 @@ MouseOutHandler, MouseWheelHandler {
 		    }, ClickEvent.getType());	
 		Event.addNativePreviewHandler(this);
 		cv.addMouseWheelHandler(this);
-		setSimRunning(true);
+		setSimRunning(false);
     }
 
     MenuItem menuItemWithShortcut(String text, String shortcut, MyCommand cmd) {
