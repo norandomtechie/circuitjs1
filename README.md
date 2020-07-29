@@ -1,6 +1,6 @@
 # CircuitJS1
 
-# Changes made by norandomtechie
+## Changes made by norandomtechie
 
 This fork is meant to port a version of the CircuitJS1 circuit simulator for academic purposes that can be used to dump circuit information into a textarea field upon any change to the circuit in the simulator.  
 The changes made allow this version of the simulator to accept a query parameter, 'field', to indicate the name of the parent window's textarea to dump the circuit text into, i.e. loading an iframe with "localhost:8888/circuitjs.html?field=circtext" will cause the resulting embed to load circuit information from the parent window's "circtext" textarea (if any) and upon any change to the loaded circuit, save the updated information back to the same textarea element.
