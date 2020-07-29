@@ -1,5 +1,13 @@
 # CircuitJS1
 
+# Changes made by norandomtechie
+
+This fork is meant to port a version of the CircuitJS1 circuit simulator for academic purposes that can be used to dump circuit information into a textarea field upon any change to the circuit in the simulator.  
+The changes made allow this version of the simulator to accept a query parameter, 'field', to indicate the name of the parent window's textarea to dump the circuit text into, i.e. loading an iframe with "localhost:8888/circuitjs.html?field=circtext" will cause the resulting embed to load circuit information from the parent window's "circtext" textarea (if any) and upon any change to the loaded circuit, save the updated information back to the same textarea element.
+Some cosmetic changes were made as well, such as initializing a stopped embed simulation as opposed to a running one, and the removal of any File => Import.../Export... functions to only allow changes to be made via the textarea element.
+
+The GWT plugin was already run to generate the JS files from the Java source code for this project, so there is no need to download Eclipse to recompile the project (unless you wish to make changes).  Simply load the index.html in the war/ directory into a browser to view a demo on how it can be used.
+
 ## Introduction
 
 CircuitJS1 is an electronic circuit simulator that runs in the browser. It was originally written by Paul Falstad as a Java Applet. It was adapted by Iain Sharp to run in the browser using GWT.
